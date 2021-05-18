@@ -1,4 +1,3 @@
-
 const request = new XMLHttpRequest();
 request.open('GET', 'https://raw.githubusercontent.com/Rajavasanthan/jsondata/master/pagenation.json ', true);
 request.send();
@@ -67,17 +66,6 @@ tr.setAttribute('id','rows')
 tr.append(td1,td2,td3)
 table.append(tablehead,tr)
 }
-
-    // td2.style.border="solid 1px"
-    //     th.innerHTML += res[e].id;
-    //     td1.innerHTML += res[e].name;
-    //     td2.innerHTML += res[e].email;
-    //     tr.append(th,td1,td2)
-    //     table.append(tr)
-    //     document.body.append(table)
-
-
-
 
 
 container.append(table)
