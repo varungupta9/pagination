@@ -1,38 +1,27 @@
+// API connection and Fetching JSON data
 const request = new XMLHttpRequest();
 request.open('GET', 'https://raw.githubusercontent.com/Rajavasanthan/jsondata/master/pagenation.json ', true);
 request.send();
-
-
-
 request.onload = function(){
-
-
-    var nameArray = [];
-    var emailArray = [];
-    
+var nameArray = [];
+var emailArray = [];
 var data = JSON.parse(this.response);
-
-
-    for(let e=0; e < data.length ; e++)
+for(let e=0; e < data.length ; e++)
     {
-    nameArray.push(data[e].name)
+    nameArray.push(data[e].name) 
     emailArray.push(data[e].email)
-
     }
  
  
-createtable(0,10)
+createtable(0,10) // loading first page with 10 data rows
 
 
-function createtable(val1,val2){
-    let start = val1;
-    let end = val2
-
-     
-   
-var rname = nameArray.slice(start,end) 
+function createtable(val1,val2){  // creating table onclick
+let start = val1;
+let end = val2
+var rname = nameArray.slice(start,end) //slice the data in 10 rows
 var remail = emailArray.slice(start,end) 
- 
+
 var container=document.createElement('div');
 container.setAttribute('id','container')
 var table = document.createElement('table')
@@ -42,16 +31,13 @@ table.style.border="solid 1px"
 var tablehead = document.createElement('thead')
 var tr = document.createElement('tr')
 
-
 var th1 = createThTr('th','ID')
 var th2 = createThTr('th','Name')
 var th3 = createThTr('th','Email')
 tr.append(th1,th2,th3)
 tablehead.append(tr)
 
-
-
-for(var k = 0 ; k < 10 ; k++)
+for(var k = 0 ; k < 10 ; k++) // creating rows & data
 {  
 
 var td1 = createThTr('td',++start)
@@ -80,20 +66,20 @@ for(var i =0 ; i <13; i++){
     btn.setAttribute('class','btn btn-outline-secondary')
     btn.setAttribute('id',i)
     
-    if(i<10){
+    if(i<10){ //create pagination till 1-10
     btn.addEventListener("click",showPages)    
     btn.innerHTML=parseInt(i)+1}
     if (i===10)
     {   btn.addEventListener("click",next) 
-        btn.innerHTML="next"
+        btn.innerHTML="next" //create next button and provide eventlistener
     }
     if (i===11)
     {   btn.addEventListener("click",prev)
-        btn.innerHTML="previous"
+        btn.innerHTML="previous" //create next button and provide eventlistener
     }
     if (i===12)
     {   btn.addEventListener("click",last)
-        btn.innerHTML="last"
+        btn.innerHTML="last"//create next button and provide eventlistener
     }
     page.append(btn)
 
@@ -106,7 +92,7 @@ document.body.append(container)
 
 var pge ='';
 
-function showPages()
+function showPages() //to show 10 data rows 
 {    var that = this;
      var ids = that.getAttribute("id")
      var row = document.getElementsByTagName('div')[0];
@@ -116,7 +102,7 @@ function showPages()
      createtable(parseInt(ids)*10,parseInt(ids)*10+10)
      
 }
-function next ()
+function next () // to show next 10 data rows
 {
     if(pge < 81)
     {
@@ -126,7 +112,7 @@ function next ()
     pge=pge+10;
     }
 }
-function prev ()
+function prev () // to show previos 10 data rows
 {
     
     if(pge >0)
@@ -139,7 +125,7 @@ function prev ()
 }
 
 
-function last ()
+function last () // to shows last 10 data rows
 {
     pge=90
     var row = document.getElementsByTagName('div')[0];
@@ -150,7 +136,7 @@ function last ()
 
 }
 
-function createThTr(elementName, value , className){
+function createThTr(elementName, value , className){ //function to create elements using DOM manipulation
     var th = document.createElement(elementName)
     th.setAttribute('class',className)
     th.innerHTML=value
